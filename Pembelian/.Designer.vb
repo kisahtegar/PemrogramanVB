@@ -48,7 +48,8 @@ Partial Class InputDataBarang
         '
         'OleDbConnection1
         '
-        Me.OleDbConnection1.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\kisahtegar\db_pembelian.mdb"
+        Me.OleDbConnection1.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\MyData\Project\cpp\Project\Pemro" &
+    "gramanVB\Database\db_pembelian.mdb"
         '
         'DataGridView1
         '
