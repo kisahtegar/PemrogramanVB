@@ -23,7 +23,7 @@ Partial Class InputDataBarang
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.OleDbConnection1 = New System.Data.OleDb.OleDbConnection()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvDataBarang = New System.Windows.Forms.DataGridView()
         Me.btnKeluar = New System.Windows.Forms.Button()
         Me.btnHapus = New System.Windows.Forms.Button()
         Me.btnBatal = New System.Windows.Forms.Button()
@@ -43,7 +43,7 @@ Partial Class InputDataBarang
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvDataBarang, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OleDbConnection1
@@ -51,13 +51,13 @@ Partial Class InputDataBarang
         Me.OleDbConnection1.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\MyData\Project\cpp\Project\Pemro" &
     "gramanVB\Database\db_pembelian.mdb"
         '
-        'DataGridView1
+        'dgvDataBarang
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(31, 363)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(520, 209)
-        Me.DataGridView1.TabIndex = 37
+        Me.dgvDataBarang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvDataBarang.Location = New System.Drawing.Point(31, 363)
+        Me.dgvDataBarang.Name = "dgvDataBarang"
+        Me.dgvDataBarang.Size = New System.Drawing.Size(520, 209)
+        Me.dgvDataBarang.TabIndex = 37
         '
         'btnKeluar
         '
@@ -225,7 +225,7 @@ Partial Class InputDataBarang
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.OrangeRed
         Me.ClientSize = New System.Drawing.Size(591, 611)
-        Me.Controls.Add(Me.DataGridView1)
+        Me.Controls.Add(Me.dgvDataBarang)
         Me.Controls.Add(Me.btnKeluar)
         Me.Controls.Add(Me.btnHapus)
         Me.Controls.Add(Me.btnBatal)
@@ -246,14 +246,14 @@ Partial Class InputDataBarang
         Me.Controls.Add(Me.Label1)
         Me.Name = "InputDataBarang"
         Me.Text = "InputDataBarang"
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvDataBarang, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents OleDbConnection1 As OleDb.OleDbConnection
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvDataBarang As DataGridView
     Friend WithEvents btnKeluar As Button
     Friend WithEvents btnHapus As Button
     Friend WithEvents btnBatal As Button

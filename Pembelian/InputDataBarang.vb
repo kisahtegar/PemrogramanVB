@@ -45,8 +45,11 @@ Public Class InputDataBarang
 
     'Input Data Barang load pertama kali
     Private Sub InputDataBarang_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Call Koneksi()
+        Call TampilGrid()
         Call Kosong()
         Call TextMati()
+        dgvDataBarang.ReadOnly = True
         Me.btnTambah.Enabled = True
         Me.btnSimpan.Enabled = False
         Me.btnEdit.Enabled = False
@@ -90,5 +93,118 @@ Public Class InputDataBarang
     'Button Keluar diclick
     Private Sub btnKeluar_Click(sender As Object, e As EventArgs) Handles btnKeluar.Click
         Close()
+    End Sub
+
+    'Menampilkan GridView
+    Sub TampilGrid()
+        da = New OleDbDataAdapter("SELECT * FROM tb_barang", conn)
+        ds = New DataSet
+        da.Fill(ds, "tb_barang")
+        dgvDataBarang.DataSource = ds.Tables("tb_barang")
+    End Sub
+
+    'Button edit click
+    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+        Call TextHidup()
+
+        Me.tbKodeBarang.Enabled = False
+        Me.btnTambah.Enabled = False
+        Me.btnSimpan.Enabled = False
+        Me.btnEdit.Enabled = False
+        Me.btnUpdate.Enabled = True
+        Me.btnBatal.Enabled = True
+        Me.btnHapus.Enabled = False
+        Me.btnKeluar.Enabled = True
+    End Sub
+
+    'Button update click
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        Dim sql As String
+
+        If MsgBox("Do you want save again ?", MsgBoxStyle.YesNo, "Message") = vbYes Then
+            sql = "UPDATE tb_barang SET nmbarang = '" & tbNamaBarang.Text & "', satuan = '" & cbSatuan.Text & "', jumlah = '" & tbJumlah.Text & "', harga = '" & tbNamaBarang.Text & "'"
+            cmd = New OleDbCommand(sql, conn)
+            cmd.ExecuteNonQuery()
+            dgvDataBarang.Refresh()
+            Me.OleDbConnection1.Close()
+            Call TextMati()
+            Call Kosong()
+            Me.btnTambah.Enabled = True
+            Me.btnSimpan.Enabled = False
+            Me.btnEdit.Enabled = False
+            Me.btnUpdate.Enabled = False
+            Me.btnBatal.Enabled = False
+            Me.btnHapus.Enabled = False
+            Me.btnKeluar.Enabled = True
+            dgvDataBarang.Refresh()
+            Call TampilGrid()
+        End If
+    End Sub
+
+    'tbKodeBarang Lost Focus
+    Private Sub tbKodeBarang_LostFocus(sender As Object, e As EventArgs) Handles tbKodeBarang.LostFocus
+        str = "SELECT * FROM tb_barang WHERE kdbarang = '" & tbKodeBarang.Text & "'"
+        cmd = New OleDbCommand(str, conn)
+        rd = cmd.ExecuteReader
+        rd.Read()
+
+        If Not rd.HasRows Then
+            Call TampilGrid()
+        Else
+            tbNamaBarang.Text = rd.Item("nmbarang")
+            cbSatuan.Text = rd.Item("satuan")
+            tbJumlah.Text = rd.Item("jumlah")
+            tbHarga.Text = rd.Item("harga")
+            TextMati()
+
+            Me.btnTambah.Enabled = False
+            Me.btnSimpan.Enabled = False
+            Me.btnEdit.Enabled = True
+            Me.btnUpdate.Enabled = False
+            Me.btnBatal.Enabled = False
+            Me.btnHapus.Enabled = False
+            Me.btnKeluar.Enabled = True
+        End If
+    End Sub
+
+    'btnBatal Click
+    Private Sub btnBatal_Click(sender As Object, e As EventArgs) Handles btnBatal.Click
+        Call TextMati()
+        Call Kosong()
+        Me.btnTambah.Enabled = True
+        Me.btnSimpan.Enabled = False
+        Me.btnEdit.Enabled = False
+        Me.btnUpdate.Enabled = False
+        Me.btnBatal.Enabled = False
+        Me.btnHapus.Enabled = False
+        Me.btnKeluar.Enabled = True
+    End Sub
+
+    'tbKodeBarang Key Press
+    Private Sub tbKodeBarang_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbKodeBarang.KeyPress
+        tbKodeBarang.MaxLength = 5
+        If e.KeyChar = Chr(13) Then tbNamaBarang.Focus()
+    End Sub
+
+    'tbNamaBarang Key Press
+    Private Sub tbNamaBarang_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbNamaBarang.KeyPress
+        tbNamaBarang.MaxLength = 25
+        If e.KeyChar = Chr(13) Then cbSatuan.Focus()
+    End Sub
+
+    'cbSatuan Key Press
+    Private Sub cbSatuan_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cbSatuan.KeyPress
+        cbSatuan.MaxLength = 10
+        If e.KeyChar = Chr(13) Then tbJumlah.Focus()
+    End Sub
+
+    'tbJumlah Key Press
+    Private Sub tbJumlah_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbJumlah.KeyPress
+        If e.KeyChar = Chr(13) Then tbHarga.Focus()
+    End Sub
+
+    'tbJumlah Key Press
+    Private Sub tbHarga_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbHarga.KeyPress
+        If e.KeyChar = Chr(13) Then btnSimpan.Focus()
     End Sub
 End Class
