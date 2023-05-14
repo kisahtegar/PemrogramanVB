@@ -1,4 +1,5 @@
 ﻿Imports System.Data.OleDb
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 
 Public Class InputDataBarang
     Dim conn As OleDbConnection
@@ -49,7 +50,7 @@ Public Class InputDataBarang
         Call TampilGrid()
         Call Kosong()
         Call TextMati()
-        dgvDataBarang.ReadOnly = True
+        'dgvDataBarang.ReadOnly = True   
         Me.btnTambah.Enabled = True
         Me.btnSimpan.Enabled = False
         Me.btnEdit.Enabled = False
@@ -67,7 +68,7 @@ Public Class InputDataBarang
         Me.btnSimpan.Enabled = True
         Me.btnEdit.Enabled = False
         Me.btnUpdate.Enabled = False
-        Me.btnBatal.Enabled = True
+        Me.btnBatal.Enabled = False
         Me.btnHapus.Enabled = False
         Me.btnKeluar.Enabled = True
     End Sub
@@ -84,9 +85,18 @@ Public Class InputDataBarang
             cmd.ExecuteNonQuery()
             MsgBox("Data berhasil di input", MsgBoxStyle.Information, "Information")
             Me.OleDbConnection1.Close()
+            Call TampilGrid()
+            dgvDataBarang.Refresh()
             Call Koneksi()
             Call Kosong()
             Call TextMati()
+            Me.btnTambah.Enabled = True
+            Me.btnSimpan.Enabled = False
+            Me.btnEdit.Enabled = False
+            Me.btnUpdate.Enabled = False
+            Me.btnBatal.Enabled = False
+            Me.btnHapus.Enabled = False
+            Me.btnKeluar.Enabled = True
         End If
     End Sub
 
@@ -113,7 +123,7 @@ Public Class InputDataBarang
         Me.btnEdit.Enabled = False
         Me.btnUpdate.Enabled = True
         Me.btnBatal.Enabled = True
-        Me.btnHapus.Enabled = False
+        Me.btnHapus.Enabled = True
         Me.btnKeluar.Enabled = True
     End Sub
 
@@ -122,7 +132,7 @@ Public Class InputDataBarang
         Dim sql As String
 
         If MsgBox("Do you want save again ?", MsgBoxStyle.YesNo, "Message") = vbYes Then
-            sql = "UPDATE tb_barang SET nmbarang = '" & tbNamaBarang.Text & "', satuan = '" & cbSatuan.Text & "', jumlah = '" & tbJumlah.Text & "', harga = '" & tbNamaBarang.Text & "'"
+            sql = "UPDATE tb_barang SET nmbarang = '" & tbNamaBarang.Text & "', satuan = '" & cbSatuan.Text & "', jumlah = '" & tbJumlah.Text & "', harga = '" & tbHarga.Text & "' where kdbarang='" & tbKodeBarang.Text & "'"
             cmd = New OleDbCommand(sql, conn)
             cmd.ExecuteNonQuery()
             dgvDataBarang.Refresh()
@@ -143,28 +153,27 @@ Public Class InputDataBarang
 
     'tbKodeBarang Lost Focus
     Private Sub tbKodeBarang_LostFocus(sender As Object, e As EventArgs) Handles tbKodeBarang.LostFocus
-        str = "SELECT * FROM tb_barang WHERE kdbarang = '" & tbKodeBarang.Text & "'"
+        str = "SELECT * FROM tb_barang Where kdbarang = '" & tbKodeBarang.Text & "'"
         cmd = New OleDbCommand(str, conn)
         rd = cmd.ExecuteReader
-        rd.Read()
-
-        If Not rd.HasRows Then
-            Call TampilGrid()
-        Else
-            tbNamaBarang.Text = rd.Item("nmbarang")
-            cbSatuan.Text = rd.Item("satuan")
-            tbJumlah.Text = rd.Item("jumlah")
-            tbHarga.Text = rd.Item("harga")
-            TextMati()
-
-            Me.btnTambah.Enabled = False
-            Me.btnSimpan.Enabled = False
-            Me.btnEdit.Enabled = True
-            Me.btnUpdate.Enabled = False
-            Me.btnBatal.Enabled = False
-            Me.btnHapus.Enabled = False
-            Me.btnKeluar.Enabled = True
-        End If
+        Try
+            While rd.Read
+                tbNamaBarang.Text = rd.GetString(1)
+                cbSatuan.Text = rd.GetString(2)
+                tbJumlah.Text = rd.GetValue(3)
+                tbHarga.Text = rd.GetValue(4)
+                TextMati()
+                Me.btnTambah.Enabled = False
+                Me.btnSimpan.Enabled = False
+                Me.btnEdit.Enabled = True
+                Me.btnUpdate.Enabled = False
+                Me.btnBatal.Enabled = False
+                Me.btnHapus.Enabled = False
+                Me.btnKeluar.Enabled = True
+            End While
+        Finally
+            rd.Close()
+        End Try
     End Sub
 
     'btnBatal Click
@@ -206,5 +215,31 @@ Public Class InputDataBarang
     'tbJumlah Key Press
     Private Sub tbHarga_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbHarga.KeyPress
         If e.KeyChar = Chr(13) Then btnSimpan.Focus()
+    End Sub
+
+    Private Sub btnHapus_Click(sender As Object, e As EventArgs) Handles btnHapus.Click
+        If tbKodeBarang.Text = "" Then
+            MsgBox("Kode belum diisi")
+            tbKodeBarang.Focus()
+            Exit Sub
+        Else
+            If MessageBox.Show("Yakin akan dihapus..?", "",
+           MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.Yes Then
+                Dim hapus As String = "Delete * from tb_barang where kdbarang='" & tbKodeBarang.Text & "'"
+                cmd = New OleDbCommand(hapus, conn)
+                cmd.ExecuteNonQuery()
+                Call TampilGrid()
+                Call Kosong()
+                Me.btnTambah.Enabled = True
+                Me.btnSimpan.Enabled = False
+                Me.btnEdit.Enabled = False
+                Me.btnUpdate.Enabled = False
+                Me.btnBatal.Enabled = False
+                Me.btnHapus.Enabled = False
+                Me.btnKeluar.Enabled = True
+            Else
+                Call TextMati()
+            End If
+        End If
     End Sub
 End Class
