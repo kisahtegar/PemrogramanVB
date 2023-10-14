@@ -33,7 +33,7 @@ Partial Class MenuUtama
         Me.LAPORANToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TransaksiPembelianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TRANSAKSIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.DataCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.DataSupplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DataBarangToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MASTERToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.BantuanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -124,23 +124,23 @@ Partial Class MenuUtama
         Me.TRANSAKSIToolStripMenuItem.Size = New System.Drawing.Size(79, 20)
         Me.TRANSAKSIToolStripMenuItem.Text = "TRANSAKSI"
         '
-        'DataCustomerToolStripMenuItem
+        'DataSupplierToolStripMenuItem
         '
-        Me.DataCustomerToolStripMenuItem.Name = "DataCustomerToolStripMenuItem"
-        Me.DataCustomerToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.DataCustomerToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
-        Me.DataCustomerToolStripMenuItem.Text = "Data Customer"
+        Me.DataSupplierToolStripMenuItem.Name = "DataSupplierToolStripMenuItem"
+        Me.DataSupplierToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
+        Me.DataSupplierToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.DataSupplierToolStripMenuItem.Text = "Data Supplier"
         '
         'DataBarangToolStripMenuItem
         '
         Me.DataBarangToolStripMenuItem.Name = "DataBarangToolStripMenuItem"
         Me.DataBarangToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.B), System.Windows.Forms.Keys)
-        Me.DataBarangToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
+        Me.DataBarangToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
         Me.DataBarangToolStripMenuItem.Text = "Data Barang"
         '
         'MASTERToolStripMenuItem
         '
-        Me.MASTERToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DataBarangToolStripMenuItem, Me.DataCustomerToolStripMenuItem})
+        Me.MASTERToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DataBarangToolStripMenuItem, Me.DataSupplierToolStripMenuItem})
         Me.MASTERToolStripMenuItem.Name = "MASTERToolStripMenuItem"
         Me.MASTERToolStripMenuItem.Size = New System.Drawing.Size(63, 20)
         Me.MASTERToolStripMenuItem.Text = "MASTER"
@@ -206,7 +206,7 @@ Partial Class MenuUtama
     Friend WithEvents LAPORANToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TransaksiPembelianToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TRANSAKSIToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents DataCustomerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DataSupplierToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DataBarangToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MASTERToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BantuanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem

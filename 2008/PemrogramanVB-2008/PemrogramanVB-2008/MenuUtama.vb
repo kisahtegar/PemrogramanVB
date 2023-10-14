@@ -28,4 +28,9 @@
         InputDataUser.Show()
         Me.Hide()
     End Sub
+
+    Private Sub DataSupplierToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DataSupplierToolStripMenuItem.Click
+        Supplier.Show()
+        Me.Hide()
+    End Sub
 End Class
